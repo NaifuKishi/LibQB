@@ -2,7 +2,7 @@ local addonInfo, privateVars = ...
 
 ---------- init namespace ---------
 
-if not nkQuestBase then nkQuestBase = {} else return end
+if not LibQB then LibQB = {} else return end
 
 privateVars.internal    = {}
 
@@ -19,7 +19,7 @@ local _db = { quests = {} }
 
 ---------- init variables ---------
 
-nkQuestBase = {
+LibQB = {
 	updateDate = '29.11.2016',
 	query = {}
 }
@@ -78,7 +78,7 @@ local function _fctLoader()
 	end
 
 	if #packageList == 0 then
-		Command.Event.Detach(Event.System.Update.Begin, nil, "nkQuestBase.System.Update.Begin")
+		Command.Event.Detach(Event.System.Update.Begin, nil, "LibQB.System.Update.Begin")
 
 		privateVars.questLoader = nil
 		privateVars.zoneLoader = nil
@@ -151,7 +151,7 @@ end
 
 ---------- lib function block ---------
 
-function nkQuestBase.loadPackage(packageName)
+function LibQB.loadPackage(packageName)
 
 	for idx = 1, #packageList, 1 do
 		if packageList[idx] == packageName then return end
@@ -161,9 +161,9 @@ function nkQuestBase.loadPackage(packageName)
 
 end
 
-function nkQuestBase.query.isInit() return init end
+function LibQB.query.isInit() return init end
 
-function nkQuestBase.query.isPackageLoaded(packageName)
+function LibQB.query.isPackageLoaded(packageName)
 
 	if loadedPackages[packageName] == true then return true end
 	
@@ -171,7 +171,7 @@ function nkQuestBase.query.isPackageLoaded(packageName)
 
 end
 
-function nkQuestBase.query.getTypeText (queryType)
+function LibQB.query.getTypeText (queryType)
 
 	local typeList = {"Kill", "Event Objective","Daily", "Collect", "Breadcrumb", "Usable", "World Event", "Talk", "Carnage", "Use Item", "Rift", "Boss Fight", "Deliver",
 							"Use Ability", "Discover", "Area Quest", "Zone Event", "Instance", "Destroy", "Escort", "Mayhem Zone Event", "Defend", "Subdue", "Quest", "Work Order", "Weekly"};
@@ -182,7 +182,7 @@ function nkQuestBase.query.getTypeText (queryType)
 
 end
 
-function nkQuestBase.query.getZoneByQuest (questID)
+function LibQB.query.getZoneByQuest (questID)
 	
 	for zoneID, zoneQuests in pairs(_db.byZone) do
 		for _, key in pairs (zoneQuests) do
@@ -194,7 +194,7 @@ function nkQuestBase.query.getZoneByQuest (questID)
 
 end
 
-function nkQuestBase.query.IsQuestInZone (zoneID, questID)
+function LibQB.query.IsQuestInZone (zoneID, questID)
 
 	for k, v in pairs(_db.byZone[zoneID]) do
 		if v == questID then return true end
@@ -204,18 +204,18 @@ function nkQuestBase.query.IsQuestInZone (zoneID, questID)
 
 end
 
-function nkQuestBase.query.getQuestsByZone(zoneID)
+function LibQB.query.getQuestsByZone(zoneID)
 
 	return _db.byZone[zoneID]
 
 end
 
-function nkQuestBase.query.byKey (questID, zoneFlag)
+function LibQB.query.byKey (questID, zoneFlag)
 
 	for lvl, list in pairs(_db.quests) do
 		if list[questID] ~= nil then
 			if zoneFlag == true and list[questID].zoneId == nil then
-				list[questID].zoneId = nkQuestBase.query.getZoneByQuest (questID)
+				list[questID].zoneId = LibQB.query.getZoneByQuest (questID)
 			end
 			return lvl, list[questID] 
 		end
@@ -225,19 +225,19 @@ function nkQuestBase.query.byKey (questID, zoneFlag)
 
 end
 
-function nkQuestBase.query.questItemByKey (itemKey)
+function LibQB.query.questItemByKey (itemKey)
 
 	return _db.questItems[itemKey]
 
 end
 
-function nkQuestBase.query.NPC (unitID)
+function LibQB.query.NPC (unitID)
 
 	return _db.npc[unitID]
 
 end
 
-function nkQuestBase.query.NPCByName (checkName)
+function LibQB.query.NPCByName (checkName)
 
 	local lang = LibEKL.tools.lang.getLanguageShort()
 
@@ -255,7 +255,7 @@ function nkQuestBase.query.NPCByName (checkName)
   
 end
 
-function nkQuestBase.query.NPCQuests(unitID)
+function LibQB.query.NPCQuests(unitID)
 
   return _db.npcQuests[unitID]
 
@@ -263,4 +263,4 @@ end
 
 -------------------- STARTUP EVENTS --------------------
 
-Command.Event.Attach(Event.System.Update.Begin, _fctLoader, "nkQuestBase.System.Update.Begin")
+Command.Event.Attach(Event.System.Update.Begin, _fctLoader, "LibQB.System.Update.Begin")
