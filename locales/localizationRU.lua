@@ -1,6 +1,6 @@
 local addonInfo, privateVars = ...
 
-if ( LibEKL.tools.lang.getLanguage() == "Russian"  ) then
+if ( LibEKL.Tools.Lang.GetLanguage() == "Russian"  ) then
 
 	nkItemBase.texts = {	
 				recipe		= 'Рецепт: %s',

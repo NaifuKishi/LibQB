@@ -43,7 +43,7 @@ local function _fctLoader()
 			forceUpdate = true
 		else
 			local tmpTime = Inspect.Time.Real()
-			if LibEKL.tools.math.round((tmpTime - lastUpdate), 1) > .5 then forceUpdate = true end
+			if LibEKL.Tools.Math.Round((tmpTime - lastUpdate), 1) > .5 then forceUpdate = true end
 		end
 	end
 
@@ -68,7 +68,7 @@ local function _fctLoader()
 			loadedPackages[thisPackage] = true
 
 		else  
-			LibEKL.tools.error.display ("nkQuestDbase", "Cannot find questLoader for package " .. thisPackage, 1)	  
+			LibEKL.Tools.Error.Display ("nkQuestDbase", "Cannot find questLoader for package " .. thisPackage, 1)	  
 		end
 
 		table.remove(packageList, 1)
@@ -239,7 +239,7 @@ end
 
 function LibQB.query.NPCByName (checkName)
 
-	local lang = LibEKL.tools.lang.getLanguageShort()
+	local lang = LibEKL.Tools.Lang.GetLanguageShort()
 
 	local retList = {}
 
