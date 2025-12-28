@@ -2,7 +2,7 @@ Identifier = "LibQB"
 Name = "LibQB"
 Description = "Quest library"
 
-Author = "Naifu"
+Author = "NaifuKishi"
 Email = "naifukishi@gmail.com"
 
 Version = "1.0.0"
