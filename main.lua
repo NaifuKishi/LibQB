@@ -8,6 +8,8 @@ privateVars.internal    = {}
 
 local _internal		= privateVars.internal
 
+local LibEKLToolsLangGetLanguageShort	= LibEKL.Tools.Lang.GetLanguageShort
+
 ---------- init local variables ---------
 
 local packageList = {}
@@ -213,11 +215,13 @@ end
 function LibQB.query.byKey (questID, zoneFlag)
 
 	for lvl, list in pairs(_db.quests) do
-		if list[questID] ~= nil then
-			if zoneFlag == true and list[questID].zoneId == nil then
-				list[questID].zoneId = LibQB.query.getZoneByQuest (questID)
+		local questList = list[questID]
+
+		if questList ~= nil then
+			if zoneFlag == true and questList.zoneId == nil then
+				questList.zoneId = LibQB.query.getZoneByQuest (questID)
 			end
-			return lvl, list[questID] 
+			return lvl, questList
 		end
 	end
 	
@@ -239,7 +243,7 @@ end
 
 function LibQB.query.NPCByName (checkName)
 
-	local lang = LibEKL.Tools.Lang.GetLanguageShort()
+	local lang = LibEKLToolsLangGetLanguageShort()
 
 	local retList = {}
 
