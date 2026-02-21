@@ -17,7 +17,7 @@ local loadedPackages = {}
 local init = false
 local forceUpdate
 local lastUpdate
-local _db = { quests = {} }
+local _db = { quests = {}, byZone = {}, npcQuests = {}, questItems = {}, npc = {} }
 
 ---------- init variables ---------
 
